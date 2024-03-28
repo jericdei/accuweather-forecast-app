@@ -1,0 +1,164 @@
+{
+    "Headline": {
+        "EffectiveDate": "2024-03-28T13:00:00+08:00",
+        "EffectiveEpochDate": 1711602000,
+        "Severity": 3,
+        "Text": "Thunderstorms in the area Thursday afternoon through late Thursday night",
+        "Category": "thunderstorm",
+        "EndDate": "2024-03-29T07:00:00+08:00",
+        "EndEpochDate": 1711666800,
+        "MobileLink": "http://www.accuweather.com/en/ph/tondo/757884/daily-weather-forecast/757884?lang=en-us",
+        "Link": "http://www.accuweather.com/en/ph/tondo/757884/daily-weather-forecast/757884?lang=en-us"
+    },
+    "DailyForecasts": [
+        {
+            "Date": "2024-03-28T07:00:00+08:00",
+            "EpochDate": 1711580400,
+            "Temperature": {
+                "Minimum": {
+                    "Value": 80,
+                    "Unit": "F",
+                    "UnitType": 18
+                },
+                "Maximum": {
+                    "Value": 93,
+                    "Unit": "F",
+                    "UnitType": 18
+                }
+            },
+            "Day": {
+                "Icon": 17,
+                "IconPhrase": "Partly sunny w/ t-storms",
+                "HasPrecipitation": true,
+                "PrecipitationType": "Rain",
+                "PrecipitationIntensity": "Light"
+            },
+            "Night": {
+                "Icon": 41,
+                "IconPhrase": "Partly cloudy w/ t-storms",
+                "HasPrecipitation": true,
+                "PrecipitationType": "Rain",
+                "PrecipitationIntensity": "Light"
+            },
+            "Sources": ["AccuWeather"],
+            "MobileLink": "http://www.accuweather.com/en/ph/tondo/757884/daily-weather-forecast/757884?day=1&lang=en-us",
+            "Link": "http://www.accuweather.com/en/ph/tondo/757884/daily-weather-forecast/757884?day=1&lang=en-us"
+        },
+        {
+            "Date": "2024-03-29T07:00:00+08:00",
+            "EpochDate": 1711666800,
+            "Temperature": {
+                "Minimum": {
+                    "Value": 78,
+                    "Unit": "F",
+                    "UnitType": 18
+                },
+                "Maximum": {
+                    "Value": 94,
+                    "Unit": "F",
+                    "UnitType": 18
+                }
+            },
+            "Day": {
+                "Icon": 6,
+                "IconPhrase": "Mostly cloudy",
+                "HasPrecipitation": false
+            },
+            "Night": {
+                "Icon": 35,
+                "IconPhrase": "Partly cloudy",
+                "HasPrecipitation": false
+            },
+            "Sources": ["AccuWeather"],
+            "MobileLink": "http://www.accuweather.com/en/ph/tondo/757884/daily-weather-forecast/757884?day=2&lang=en-us",
+            "Link": "http://www.accuweather.com/en/ph/tondo/757884/daily-weather-forecast/757884?day=2&lang=en-us"
+        },
+        {
+            "Date": "2024-03-30T07:00:00+08:00",
+            "EpochDate": 1711753200,
+            "Temperature": {
+                "Minimum": {
+                    "Value": 76,
+                    "Unit": "F",
+                    "UnitType": 18
+                },
+                "Maximum": {
+                    "Value": 94,
+                    "Unit": "F",
+                    "UnitType": 18
+                }
+            },
+            "Day": {
+                "Icon": 4,
+                "IconPhrase": "Intermittent clouds",
+                "HasPrecipitation": false
+            },
+            "Night": {
+                "Icon": 36,
+                "IconPhrase": "Intermittent clouds",
+                "HasPrecipitation": false
+            },
+            "Sources": ["AccuWeather"],
+            "MobileLink": "http://www.accuweather.com/en/ph/tondo/757884/daily-weather-forecast/757884?day=3&lang=en-us",
+            "Link": "http://www.accuweather.com/en/ph/tondo/757884/daily-weather-forecast/757884?day=3&lang=en-us"
+        },
+        {
+            "Date": "2024-03-31T07:00:00+08:00",
+            "EpochDate": 1711839600,
+            "Temperature": {
+                "Minimum": {
+                    "Value": 76,
+                    "Unit": "F",
+                    "UnitType": 18
+                },
+                "Maximum": {
+                    "Value": 95,
+                    "Unit": "F",
+                    "UnitType": 18
+                }
+            },
+            "Day": {
+                "Icon": 1,
+                "IconPhrase": "Sunny",
+                "HasPrecipitation": false
+            },
+            "Night": {
+                "Icon": 33,
+                "IconPhrase": "Clear",
+                "HasPrecipitation": false
+            },
+            "Sources": ["AccuWeather"],
+            "MobileLink": "http://www.accuweather.com/en/ph/tondo/757884/daily-weather-forecast/757884?day=4&lang=en-us",
+            "Link": "http://www.accuweather.com/en/ph/tondo/757884/daily-weather-forecast/757884?day=4&lang=en-us"
+        },
+        {
+            "Date": "2024-04-01T07:00:00+08:00",
+            "EpochDate": 1711926000,
+            "Temperature": {
+                "Minimum": {
+                    "Value": 78,
+                    "Unit": "F",
+                    "UnitType": 18
+                },
+                "Maximum": {
+                    "Value": 96,
+                    "Unit": "F",
+                    "UnitType": 18
+                }
+            },
+            "Day": {
+                "Icon": 2,
+                "IconPhrase": "Mostly sunny",
+                "HasPrecipitation": false
+            },
+            "Night": {
+                "Icon": 33,
+                "IconPhrase": "Clear",
+                "HasPrecipitation": false
+            },
+            "Sources": ["AccuWeather"],
+            "MobileLink": "http://www.accuweather.com/en/ph/tondo/757884/daily-weather-forecast/757884?day=5&lang=en-us",
+            "Link": "http://www.accuweather.com/en/ph/tondo/757884/daily-weather-forecast/757884?day=5&lang=en-us"
+        }
+    ]
+}
