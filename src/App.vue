@@ -4,7 +4,8 @@ import AutoComplete from "primevue/autocomplete"
 import { ref } from "vue"
 import ProgressSpinner from "primevue/progressspinner"
 import ForecastItem from "@/components/ForecastItem.vue"
-import { useAutoComplete, useAccuWeather } from "@/composables/accuweather"
+import useAccuWeather from "@/composables/accuweather"
+import useAutoComplete from "@/composables/autocomplete"
 
 const search = ref("")
 
@@ -60,6 +61,12 @@ function getAddress(location: any, withCity: boolean = false) {
                         5-day Weather Forecast for
                         {{ getAddress(selectedLocation, true) }}
                     </h2>
+
+                    <div class="mt-8">
+                        <p class="text-center italic">
+                            {{ forecast?.Headline.Text }}
+                        </p>
+                    </div>
 
                     <div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-5">
                         <ForecastItem
