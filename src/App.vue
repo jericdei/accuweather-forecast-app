@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import MainLayout from "@/layouts/MainLayout.vue"
-import AutoComplete from "primevue/autocomplete"
+import AutoComplete, { AutoCompleteItemSelectEvent } from "primevue/autocomplete"
 import { ref } from "vue"
 import ProgressSpinner from "primevue/progressspinner"
 import ForecastItem from "@/components/ForecastItem.vue"
@@ -9,15 +9,34 @@ import useAutoComplete from "@/composables/autocomplete"
 
 const search = ref("")
 
-const { suggestions, getSuggestions } = useAutoComplete()
-const { getForecast, selectedLocation, forecastLoading, forecast } = useAccuWeather()
+const { suggestions, getSuggestions, selectedLocation } = useAutoComplete()
+const { getForecast, forecastLoading, forecast } = useAccuWeather()
 
-function getAddress(location: any, withCity: boolean = false) {
-    if (!withCity) {
-        return `${location.LocalizedName}, ${location.Country.LocalizedName}`
+/**
+ * Get address string from a location
+ *
+ * @param location Location to get address
+ * @param withCity Whether to include city
+ */
+function getAddress(location: AccuWeatherLocation, withCity: boolean = false) {
+    let locations = [location.AdministrativeArea.LocalizedName, location.Country.LocalizedName]
+
+    // Add city to the begining of the array if withCity is true
+    if (withCity) {
+        locations.unshift(location.LocalizedName)
     }
 
-    return `${location.LocalizedName}, ${location.AdministrativeArea.LocalizedName}, ${location.Country.LocalizedName}`
+    return locations.join(", ")
+}
+
+/**
+ * Assign the selected location from the autocomplete and get the forecast.
+ * @param event
+ */
+async function getLocationForecast(event: AutoCompleteItemSelectEvent) {
+    selectedLocation.value = event.value as AccuWeatherLocation
+
+    await getForecast(selectedLocation.value)
 }
 </script>
 
@@ -32,7 +51,7 @@ function getAddress(location: any, withCity: boolean = false) {
                     :suggestions="suggestions"
                     placeholder="Type here"
                     @complete="getSuggestions"
-                    @item-select="getForecast"
+                    @item-select="getLocationForecast"
                     option-label="LocalizedName"
                 >
                     <template #option="{ option }">

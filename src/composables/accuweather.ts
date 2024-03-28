@@ -1,19 +1,22 @@
 import axios from "@/lib/axios"
-import { AutoCompleteItemSelectEvent } from "primevue/autocomplete"
 import { ref } from "vue"
-import useAutoComplete from "@/composables/autocomplete"
 
 const useApi = import.meta.env.VITE_USE_API === "true"
 
+/**
+ * Composable for AccuWeather Forecast API Service
+ */
 export default function useAccuWeather() {
-    const { selectedLocation } = useAutoComplete()
-
     const forecast = ref<DailyForecastResponse | null>(null)
     const forecastLoading = ref(false)
 
-    async function getForecast(event: AutoCompleteItemSelectEvent) {
+    /**
+     * Get forecast based on selected
+     * @param event
+     * @returns
+     */
+    async function getForecast(location: AccuWeatherLocation) {
         forecastLoading.value = true
-        selectedLocation.value = event.value
 
         if (!useApi) {
             const { default: sampleForecast } = await import("@/json/sample-forecast.json")
@@ -26,7 +29,7 @@ export default function useAccuWeather() {
         }
 
         try {
-            const response = await axios.get(`forecasts/v1/daily/5day/${event.value.Key}`)
+            const response = await axios.get(`forecasts/v1/daily/5day/${location.Key}`)
 
             forecast.value = response.data
         } catch (error) {
@@ -36,5 +39,5 @@ export default function useAccuWeather() {
         }
     }
 
-    return { selectedLocation, getForecast, forecast, forecastLoading }
+    return { getForecast, forecast, forecastLoading }
 }
