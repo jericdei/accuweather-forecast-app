@@ -35,10 +35,10 @@ Bun v1.0.26
 curl -fsSL https://bun.sh/install | bash
 ```
 
-#### 1. Clone this repo
+#### 1. Clone this repository
 
 ```bash
-git clone git@github.com:jericdei/accuweather-forecast-app.git
+git clone https://github.com/jericdei/accuweather-forecast-app.git
 
 cd accuweather-forecast-app
 ```
