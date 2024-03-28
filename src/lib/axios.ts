@@ -1,7 +1,7 @@
 import Axios from "axios"
 
 const axios = Axios.create({
-    baseURL: "http://dataservice.accuweather.com",
+    baseURL: "https://dataservice.accuweather.com",
 })
 
 // This will always add the API key as query params for every request
