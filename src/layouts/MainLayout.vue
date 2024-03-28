@@ -8,6 +8,9 @@ import Toast from "primevue/toast"
             <slot />
         </div>
 
-        <Toast group="br" />
+        <Toast
+            group="br"
+            position="bottom-right"
+        />
     </main>
 </template>
