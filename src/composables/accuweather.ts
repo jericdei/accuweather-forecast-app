@@ -1,12 +1,10 @@
 import axios from "@/lib/axios"
 import { ref } from "vue"
 
-const useApi = import.meta.env.VITE_USE_API === "true"
-
 /**
  * Composable for AccuWeather Forecast API Service
  */
-export default function useAccuWeather() {
+export default function useAccuWeather(useApi: boolean = import.meta.env.VITE_USE_API === "true") {
     const forecast = ref<DailyForecastResponse | null>(null)
     const forecastLoading = ref(false)
 

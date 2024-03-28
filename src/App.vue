@@ -50,7 +50,7 @@ async function getLocationForecast(event: AutoCompleteItemSelectEvent) {
                     v-model="search"
                     :suggestions="suggestions"
                     placeholder="Type here"
-                    @complete="getSuggestions"
+                    @complete="getSuggestions($event.query)"
                     @item-select="getLocationForecast"
                     option-label="LocalizedName"
                 >

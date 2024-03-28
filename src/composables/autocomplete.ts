@@ -1,13 +1,10 @@
 import axios from "@/lib/axios"
-import { AutoCompleteCompleteEvent } from "primevue/autocomplete"
 import { ref } from "vue"
-
-const useApi = import.meta.env.VITE_USE_API === "true"
 
 /**
  * Composable for AccuWeather Location AutoComplete API Service
  */
-export default function useAutoComplete() {
+export default function useAutoComplete(useApi: boolean = import.meta.env.VITE_USE_API === "true") {
     const suggestions = ref<AccuWeatherLocation[]>([])
     const selectedLocation = ref<AccuWeatherLocation | null>(null)
 
@@ -16,7 +13,7 @@ export default function useAutoComplete() {
      *
      * @param event PrimeVue AutoCompleteCompleteEvent
      */
-    async function getSuggestions(event: AutoCompleteCompleteEvent) {
+    async function getSuggestions(query: string) {
         // Just use the sample JSON to not waste API calls
         if (!useApi) {
             const { default: sampleSearch }: { default: AccuWeatherLocation[] } = await import(
@@ -31,7 +28,7 @@ export default function useAutoComplete() {
         try {
             const response = await axios.get("locations/v1/cities/autocomplete", {
                 params: {
-                    q: event.query,
+                    q: query,
                 },
             })
 
