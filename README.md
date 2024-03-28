@@ -51,7 +51,6 @@ cp .env.example .env
 
 # Populate the appropriate `.env` values
 VITE_ACCUWEATHER_API_KEY={API_KEY}
-VITE_USE_API=true
 ```
 
 #### 4. Start Dev Server

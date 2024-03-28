@@ -3,8 +3,8 @@ import { expect, test } from "vitest"
 
 // true = call the API
 // false = use sample data
-test.each([true, false])("accuweather can get forecast", async (useApi: boolean) => {
-    const { forecast, getForecast } = useAccuWeather(useApi)
+test("accuweather can get forecast", async () => {
+    const { forecast, getForecast } = useAccuWeather()
 
     expect(forecast.value).toEqual(null)
 

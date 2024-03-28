@@ -3,8 +3,8 @@ import { expect, test } from "vitest"
 
 // true = call the API
 // false = use sample data
-test.each([true, false])("useAutoComplete can get suggestions", async (useApi: boolean) => {
-    const { suggestions, getSuggestions } = useAutoComplete(useApi)
+test("useAutoComplete can get suggestions", async () => {
+    const { suggestions, getSuggestions } = useAutoComplete()
 
     expect(suggestions.value).toEqual([])
 
