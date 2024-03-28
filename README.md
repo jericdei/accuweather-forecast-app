@@ -82,3 +82,7 @@ bun run build
 # Start a server to preview the build
 bun run preview
 ```
+
+## Credits
+
+-   [sur-ser](https://www.npmjs.com/~sur-ser), creator of [accuweather-api](https://www.npmjs.com/package/accuweather-api). Although I didn't use the package, I used some type declarations for API typesafety.

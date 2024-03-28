@@ -1,3 +1,5 @@
+// Credits to https://www.npmjs.com/~sur-ser for these type declarations from 'accuweather-api' package
+
 type DateTimeString = string
 type DateTimeEpoch = number
 
