@@ -18,6 +18,12 @@ This is a simple Weather App using AccuWeather Forecast API for a Software Devel
 -   HTTP: [Axios](https://axios-http.com/)
 -   Dates: [Moment](https://momentjs.com/)
 
+## Deployment
+
+This project is deployed in [Vercel](https://vercel.com/) and you can access it using the following link:
+
+-   https://accuweather-forecast-app.vercel.app
+
 ## Running Locally
 
 ### Requirements
