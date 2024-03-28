@@ -1,60 +1,15 @@
 <script setup lang="ts">
 import MainLayout from "@/layouts/MainLayout.vue"
-import AutoComplete, { AutoCompleteCompleteEvent, AutoCompleteItemSelectEvent } from "primevue/autocomplete"
+import AutoComplete from "primevue/autocomplete"
 import { ref } from "vue"
-import axios from "@/lib/axios"
 import ProgressSpinner from "primevue/progressspinner"
 import ForecastItem from "@/components/ForecastItem.vue"
+import { useAutoComplete, useAccuWeather } from "@/composables/accuweather"
 
 const search = ref("")
-const suggestions = ref<AccuWeatherLocation[]>([])
-const selectedLocation = ref<AccuWeatherLocation | null>(null)
-const forecast = ref<DailyForecastResponse | null>(null)
-const forecastLoading = ref(false)
-const useApi = false
 
-async function getSuggestions(event: AutoCompleteCompleteEvent) {
-    try {
-        if (useApi) {
-            const response = await axios.get("locations/v1/cities/autocomplete", {
-                params: {
-                    q: event.query,
-                },
-            })
-
-            suggestions.value = response.data
-        } else {
-            const { default: sampleSearch }: { default: AccuWeatherLocation[] } = await import(
-                "@/json/sample-search.json"
-            )
-
-            suggestions.value = sampleSearch
-        }
-    } catch (error) {
-        console.error(error)
-    }
-}
-
-async function getForecast(event: AutoCompleteItemSelectEvent) {
-    try {
-        forecastLoading.value = true
-        selectedLocation.value = event.value
-
-        if (useApi) {
-            const response = await axios.get(`forecasts/v1/daily/5day/${event.value.Key}`)
-
-            forecast.value = response.data.DailyForecasts
-        } else {
-            const { default: sampleForecast } = await import("@/json/sample-forecast.json")
-
-            forecast.value = sampleForecast as DailyForecastResponse
-        }
-    } catch (error) {
-        console.error(error)
-    } finally {
-        forecastLoading.value = false
-    }
-}
+const { suggestions, getSuggestions } = useAutoComplete()
+const { getForecast, selectedLocation, forecastLoading, forecast } = useAccuWeather()
 
 function getAddress(location: any, withCity: boolean = false) {
     if (!withCity) {
