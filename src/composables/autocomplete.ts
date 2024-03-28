@@ -32,11 +32,10 @@ export default function useAutoComplete() {
             let message = "Something went wrong. Please refresh the page and try again."
 
             if (error instanceof AxiosError) {
-                if (error.response?.status === 503) {
-                    message = "API key is expired."
-                } else {
-                    message = error.response?.data.Message
-                }
+                message =
+                    error.message === "Network Error"
+                        ? "A network error occurred. This could be an API Key limit, CORS, or an internet connection issue."
+                        : error.response?.data.Message
             }
 
             toast.add({
