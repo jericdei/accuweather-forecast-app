@@ -4,14 +4,12 @@ import AutoComplete, { AutoCompleteCompleteEvent, AutoCompleteItemSelectEvent } 
 import { ref } from "vue"
 import axios from "@/lib/axios"
 import ProgressSpinner from "primevue/progressspinner"
-import moment from "moment"
-import { leftFillNum } from "@/utils/helpers"
-import Divider from "primevue/divider"
+import ForecastItem from "@/components/ForecastItem.vue"
 
 const search = ref("")
-const suggestions = ref([])
-const selectedLocation = ref<any>(null)
-const forecast = ref<any[]>([])
+const suggestions = ref<AccuWeatherLocation[]>([])
+const selectedLocation = ref<AccuWeatherLocation | null>(null)
+const forecast = ref<DailyForecastResponse | null>(null)
 const forecastLoading = ref(false)
 const useApi = false
 
@@ -26,7 +24,11 @@ async function getSuggestions(event: AutoCompleteCompleteEvent) {
 
             suggestions.value = response.data
         } else {
-            suggestions.value = (await import("@/json/sample-search.json")).default as any
+            const { default: sampleSearch }: { default: AccuWeatherLocation[] } = await import(
+                "@/json/sample-search.json"
+            )
+
+            suggestions.value = sampleSearch
         }
     } catch (error) {
         console.error(error)
@@ -43,7 +45,9 @@ async function getForecast(event: AutoCompleteItemSelectEvent) {
 
             forecast.value = response.data.DailyForecasts
         } else {
-            forecast.value = (await import(`@/json/sample-forecast.json`)).DailyForecasts as any
+            const { default: sampleForecast } = await import("@/json/sample-forecast.json")
+
+            forecast.value = sampleForecast as DailyForecastResponse
         }
     } catch (error) {
         console.error(error)
@@ -86,7 +90,7 @@ function getAddress(location: any, withCity: boolean = false) {
 
             <div class="mt-16">
                 <div v-if="!selectedLocation">
-                    <p class="text-center">Search for a location to get 5-day weather forecast.</p>
+                    <p class="p-32 text-center">Search for a location to get 5-day weather forecast.</p>
                 </div>
 
                 <div
@@ -103,61 +107,11 @@ function getAddress(location: any, withCity: boolean = false) {
                     </h2>
 
                     <div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-5">
-                        <div
-                            v-for="item in forecast"
+                        <ForecastItem
+                            v-for="item in forecast?.DailyForecasts"
                             :key="item.Date"
-                            class="rounded-lg bg-slate-800 p-4"
-                        >
-                            <p class="text-center font-bold">{{ moment(item.Date).format("dddd, MMM Do") }}</p>
-
-                            <div class="mt-4">
-                                <p class="text-center">Temperature:</p>
-
-                                <div class="grid grid-cols-1 justify-items-center lg:grid-cols-2">
-                                    <div>
-                                        <small
-                                            >Min:
-                                            {{
-                                                `${item.Temperature.Minimum.Value} °${item.Temperature.Minimum.Unit}`
-                                            }}</small
-                                        >
-                                    </div>
-
-                                    <div>
-                                        <small
-                                            >Max:
-                                            {{
-                                                `${item.Temperature.Maximum.Value} °${item.Temperature.Maximum.Unit}`
-                                            }}</small
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mt-4 flex flex-col">
-                                <div class="flex flex-col items-center gap-4">
-                                    <h3 class="font-medium">Day</h3>
-
-                                    <img
-                                        :src="`https://developer.accuweather.com/sites/default/files/${leftFillNum(item.Day.Icon, 2)}-s.png`"
-                                    />
-
-                                    <small>{{ item.Day.IconPhrase }}</small>
-                                </div>
-
-                                <Divider />
-
-                                <div class="flex flex-col items-center gap-4">
-                                    <h3 class="font-medium">Night</h3>
-
-                                    <img
-                                        :src="`https://developer.accuweather.com/sites/default/files/${leftFillNum(item.Night.Icon, 2)}-s.png`"
-                                    />
-
-                                    <small>{{ item.Night.IconPhrase }}</small>
-                                </div>
-                            </div>
-                        </div>
+                            :item="item"
+                        />
                     </div>
                 </div>
             </div>
