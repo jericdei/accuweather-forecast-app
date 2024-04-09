@@ -2,6 +2,11 @@
 
 This is a simple Weather Forecasting App using different API providers.
 
+## Available Providers
+
+-   [AccuWeather](https://accuweather.com/) (`accuweather`): free 50 requests per day
+-   [WeatherAPI](https://www.weatherapi.com/) (`weatherapi`): free 5M requests per month
+
 ## Features
 
 -   Search for a location with Autocomplete
@@ -38,9 +43,9 @@ curl -fsSL https://bun.sh/install | bash
 #### 1. Clone this repository
 
 ```bash
-git clone https://github.com/jericdei/accuweather-forecast-app.git
+git clone https://github.com/jericdei/weather-forecast-app.git
 
-cd accuweather-forecast-app
+cd weather-forecast-app
 ```
 
 #### 2. Install Dependencies
@@ -56,7 +61,9 @@ cp .env.example .env
 
 
 # Populate the appropriate `.env` values
+VITE_API_PROVIDER=weatherpi # see list of providers
 VITE_ACCUWEATHER_API_KEY={API_KEY}
+VITE_WEATHERAPI_API_KEY={API_KEY}
 ```
 
 #### 4. Start Dev Server
