@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import MainLayout from "@/layouts/MainLayout.vue"
-import AutoComplete, { AutoCompleteItemSelectEvent } from "primevue/autocomplete"
+import AutoComplete, { AutoCompleteCompleteEvent, AutoCompleteItemSelectEvent } from "primevue/autocomplete"
 import { ref } from "vue"
 import ProgressSpinner from "primevue/progressspinner"
 import ForecastItem from "@/components/ForecastItem.vue"
-import useAccuWeather from "@/composables/accuweather"
-import useAutoComplete from "@/composables/autocomplete"
+import { useServiceContainerContext } from "@/composables/service-container"
+import { WeatherService } from "./types/weather"
+
+const { weatherService } = useServiceContainerContext() as { weatherService: WeatherService }
 
 const search = ref("")
-
-const { suggestions, getSuggestions, selectedLocation } = useAutoComplete()
-const { getForecast, forecastLoading, forecast } = useAccuWeather()
+const suggestions = ref<WeatherLocation[]>([])
+const selectedLocation = ref<WeatherLocation | null>(null)
+const forecastLoading = ref(false)
+const forecast = ref<WeatherForecast | null>(null)
 
 /**
  * Get address string from a location
@@ -18,12 +21,12 @@ const { getForecast, forecastLoading, forecast } = useAccuWeather()
  * @param location Location to get address
  * @param withCity Whether to include city
  */
-function getAddress(location: AccuWeatherLocation, withCity: boolean = false) {
-    let locations = [location.AdministrativeArea.LocalizedName, location.Country.LocalizedName]
+function getAddress(location: WeatherLocation, withCity: boolean = false) {
+    let locations = [location.region, location.country]
 
     // Add city to the begining of the array if withCity is true
     if (withCity) {
-        locations.unshift(location.LocalizedName)
+        locations.unshift(location.name)
     }
 
     return locations.join(", ")
@@ -34,9 +37,17 @@ function getAddress(location: AccuWeatherLocation, withCity: boolean = false) {
  * @param event
  */
 async function getLocationForecast(event: AutoCompleteItemSelectEvent) {
-    selectedLocation.value = event.value as AccuWeatherLocation
+    forecastLoading.value = true
 
-    await getForecast(selectedLocation.value)
+    selectedLocation.value = event.value
+
+    forecast.value = await weatherService.getForecast(selectedLocation.value?.key as string)
+
+    forecastLoading.value = false
+}
+
+async function populateSuggestions(event: AutoCompleteCompleteEvent) {
+    suggestions.value = await weatherService.getSuggestions(event.query)
 }
 </script>
 
@@ -50,13 +61,13 @@ async function getLocationForecast(event: AutoCompleteItemSelectEvent) {
                     v-model="search"
                     :suggestions="suggestions"
                     placeholder="Type here"
-                    @complete="getSuggestions($event.query)"
+                    @complete="populateSuggestions"
                     @item-select="getLocationForecast"
-                    option-label="LocalizedName"
+                    option-label="name"
                 >
-                    <template #option="{ option }">
+                    <template #option="{ option }: { option: WeatherLocation }">
                         <div class="flex flex-col">
-                            <span>{{ option.LocalizedName }}</span>
+                            <span>{{ option.name }}</span>
                             <small>{{ getAddress(option, false) }}</small>
                         </div>
                     </template>
@@ -83,14 +94,14 @@ async function getLocationForecast(event: AutoCompleteItemSelectEvent) {
 
                     <div class="mt-8">
                         <p class="text-center italic">
-                            {{ forecast?.Headline.Text }}
+                            {{ forecast?.headline }}
                         </p>
                     </div>
 
                     <div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-5">
                         <ForecastItem
-                            v-for="item in forecast?.DailyForecasts"
-                            :key="item.Date"
+                            v-for="item in forecast?.forecasts"
+                            :key="item.date"
                             :item="item"
                         />
                     </div>

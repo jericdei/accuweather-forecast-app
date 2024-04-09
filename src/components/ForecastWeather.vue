@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { leftFillNum } from "@/utils/helpers"
-
 defineProps<{
     type: "Day" | "Night"
-    data: DayNightData
+    data: DayNight
 }>()
 </script>
 
@@ -11,8 +9,10 @@ defineProps<{
     <div class="flex flex-col items-center gap-4">
         <h3 class="font-medium">{{ type }}</h3>
 
-        <img :src="`https://developer.accuweather.com/sites/default/files/${leftFillNum(data.Icon, 2)}-s.png`" />
+        <!-- TODO: implement icon for accuweather -->
+        <!-- <img :src="`https://developer.accuweather.com/sites/default/files/${leftFillNum(data.icon, 2)}-s.png`" /> -->
+        <img :src="data.iconLink" />
 
-        <small>{{ data.IconPhrase }}</small>
+        <small>{{ data.label }}</small>
     </div>
 </template>

@@ -6,6 +6,6 @@ defineProps<{
 
 <template>
     <div>
-        <small>Min: {{ `${temperature.Value} °${temperature.Unit}` }}</small>
+        <small>Min: {{ `${temperature.value} °${temperature.unit}` }}</small>
     </div>
 </template>

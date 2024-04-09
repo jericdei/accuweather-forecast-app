@@ -1,6 +1,6 @@
-# AccuWeather Forecast App
+# Weather Forecast App
 
-This is a simple Weather App using AccuWeather Forecast API for a Software Developer Examination from Regal Credit.
+This is a simple Weather Forecasting App using different API providers.
 
 ## Features
 
@@ -22,7 +22,7 @@ This is a simple Weather App using AccuWeather Forecast API for a Software Devel
 
 This project is deployed in [Vercel](https://vercel.com/) and you can access it using the following link:
 
--   https://accuweather-forecast-app.vercel.app
+-   https://weather-forecast-app.vercel.app
 
 ## Running Locally
 
