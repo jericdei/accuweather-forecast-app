@@ -27,7 +27,7 @@ This is a simple Weather Forecasting App using different API providers.
 
 This project is deployed in [Vercel](https://vercel.com/) and you can access it using the following link:
 
--   https://weather-forecast-app.vercel.app
+-   https://weather-forecast-app-neon.vercel.app/
 
 ## Running Locally
 
